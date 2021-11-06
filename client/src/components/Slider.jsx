@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import {sliderItems} from '../data';
 
 const Container = styled.div`
   max-width: 100%;
@@ -46,7 +47,7 @@ const Slide = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
-  background: #faf5fd;
+  background: #${props => props.bg};
 `;
 
 const ImgContainer = styled.div`
@@ -100,44 +101,22 @@ const Slider = () => {
         <ArrowLeftIcon />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
-        <Slide>
-          <ImgContainer>
-            <Image src="img/jeans.jpg" alt="jeans" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>SUMMER SAL</Title>
-            <Desc>
-              DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.
-            </Desc>
-            <Button>SHOW NOW</Button>
-          </InfoContainer>
-        </Slide>
-
-        <Slide>
-          <ImgContainer>
-            <Image src="img/jeans.jpg" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>SUMMER SAL2</Title>
-            <Desc>
-              DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.
-            </Desc>
-            <Button>SHOW NOW</Button>
-          </InfoContainer>
-        </Slide>
-
-        <Slide>
-          <ImgContainer>
-            <Image src="img/jeans.jpg" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>SUMMER SAL3</Title>
-            <Desc>
-              DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.
-            </Desc>
-            <Button>SHOW NOW</Button>
-          </InfoContainer>
-        </Slide>
+        {sliderItems.map((item, index) => {
+          return (
+            <Slide bg={item.bg} key={index}>
+              <ImgContainer>
+                <Image src={item.img} alt={item.title} />
+              </ImgContainer>
+              <InfoContainer>
+                <Title>{item.title}</Title>
+                <Desc>
+                  {item.desc}
+                </Desc>
+                <Button>SHOW NOW</Button>
+              </InfoContainer>
+            </Slide>
+          )
+        })}
       </Wrapper>
       <Arrow direction="right" onClick={() => handleClick('right')}>
         <ArrowRightIcon />

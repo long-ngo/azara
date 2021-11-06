@@ -114,7 +114,7 @@ const Footer = () => {
           <RoomIcon style={{marginRight:'10px'}}/>129/19/9 inter-zone street 5-6
           </ContactItem>
         <ContactItem>
-          <CallIcon style={{marginRight:'10px'}}/>+89 90 287 1321
+          <CallIcon style={{marginRight:'10px'}}/>+84 90 287 1321
           </ContactItem>
         <ContactItem>
           <EmailOutlinedIcon style={{marginRight:'10px'}}/>longngoryuln@gmail.com

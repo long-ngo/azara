@@ -53,6 +53,7 @@ const Button = styled.button`
   border: none;
   background: teal;
   color: white;
+  cursor: pointer;
 `
 
 const Login = () => {
@@ -61,8 +62,8 @@ const Login = () => {
        <Wrapper>
         <Title>SIGN IN</Title>
         <Form>
-          <Input placeholder="username"/>
-          <Input placeholder="password"/>
+          <Input type="text" placeholder="username"/>
+          <Input type="password" placeholder="password"/>
         </Form>
         <Button>LOGIN</Button>
         <Agreement>
