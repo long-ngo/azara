@@ -67,7 +67,6 @@ const Right = styled.div`
 const ContactItem = styled.div`
   margin-bottom: 10px;
   display: flex;
-  align-items: center;
 `
 const Payment = styled.img`
   width: 50%;
