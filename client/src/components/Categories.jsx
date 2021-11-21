@@ -2,10 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 import CategoryItem from './CategoryItem'
 import {categories} from '../data'
+import {mobile} from '../responsive';
 
 const Container = styled.div`
+  padding: 4px;
   display: flex;
-  padding: 20px;
+  gap: 0 4px;
+  ${mobile({
+    flexFlow: 'column',
+    padding: '4px 0',
+    gap: '2px 0'
+  })}
 `
 
 const Categories = () => {

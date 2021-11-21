@@ -1,11 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
+import {mobile} from '../responsive'
 
 const Container = styled.div`
-  flex: 1;
   height: 70vh;
-  margin: 3px;
+  flex: 1;
   position: relative;
+  ${mobile({
+    maxHeight: '30vh'
+  })}
 `
 const Image = styled.img`
   width: 100%;
@@ -22,10 +25,10 @@ const Info = styled.div`
   justify-content: center;
   align-items: center;
   flex-flow: column;
+  gap: 20px 0;
 `
 const Title = styled.h1`
   color: white;
-  margin-bottom: 20px;
 `
 const Button = styled.button`
   padding: 10px;

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import {mobile} from '../responsive'
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -10,15 +11,17 @@ import RoomIcon from '@mui/icons-material/Room';
 
 const Container = styled.div`
   min-height: 30vh;
-  padding: 10px;
+  padding: 10px 2em;
   background: white;
   display: flex;
   flex-flow: wrap;
+  justify-content: space-between;
+  align-items: center;
 `
 
 // left
 const Left = styled.div`
-  flex: 1;
+  flex: 2;
 `
 const Logo = styled.h1`
   margin: 20px 0;
@@ -45,7 +48,10 @@ const SocialIcon = styled.div`
 
 // center
 const Center = styled.div`
-  flex: 1;
+  flex: 2;
+  ${mobile({
+    display: 'none'
+  })}
 `
 const Title = styled.h3`
   margin: 20px 0;
@@ -67,6 +73,7 @@ const Right = styled.div`
 const ContactItem = styled.div`
   margin-bottom: 10px;
   display: flex;
+  align-items: center;
 `
 const Payment = styled.img`
   width: 50%;
