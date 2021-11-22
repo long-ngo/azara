@@ -14,4 +14,8 @@ npm run dev
 
 ## push git
 
-git push -u origin main
+git push origin master
+
+## push heroku
+
+git push heroku master
