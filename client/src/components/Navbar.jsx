@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Badge } from '@mui/material';
 import {mobile} from '../responsive'
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   min-height: 60px;
@@ -101,7 +102,9 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>AZARA</Logo>
+          <Link to="/" style={{textDecoration:"none"}}>
+            <Logo>AZARA</Logo>
+          </Link>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
