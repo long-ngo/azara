@@ -2,7 +2,7 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Product from './pages/Product';
+import ProductDetails from './pages/ProductDetails';
 import ProductList from './pages/ProductList';
 import {
   BrowserRouter as Router,
@@ -18,7 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/cart" element={<Cart />}/>
-        <Route path="/product/:id" element={<Product />}/>
+        <Route path="/product/:id" element={<ProductDetails />}/>
         <Route path="/products/:category" element={<ProductList />}/>
         <Route path="/login" element={user ? <Navigate to='/'/> : <Login />}/>
         <Route path="/register" element={user ? <Navigate to='/'/> : <Register />}/>

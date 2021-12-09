@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Announcement from '../components/Announcement';
 import NewsLetter from '../components/NewsLetter';
@@ -6,6 +6,8 @@ import Footer from '../components/Footer';
 import styled from 'styled-components';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import axios from 'axios';
+import { useParams } from 'react-router';
 
 const Container = styled.div``
 const Wrapper = styled.div`
@@ -101,51 +103,65 @@ const AddButton = styled.button`
   }
 `
 
-const Product = () => {
+const ProductDetails = () => {
+  const params = useParams();
+  const [product, setProduct] = useState({})
+
+  useEffect(() => {
+    (async() => {
+      const res = await axios.get(`http://localhost:5000/api/product/${params.id}`);
+      setProduct(res.data[0]);
+    })()
+    return () => setProduct({})
+  }, [params])
+
   return (
     <Container>
       <Navbar />
       <Announcement />
-      <Wrapper>
-        <ImageContainer>
-          <Image src="https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png" alt="" />
-        </ImageContainer>
-        <InfoContainer>
-          <Title>Denim</Title>
-          <Desc>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci consectetur nam ipsa, sapiente a atque eius explicabo possimus deleniti voluptate, facere autem amet. Rem ullam laborum, at voluptate molestias maiores.</Desc>
-          <Price>$ 20</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black"></FilterColor>
-              <FilterColor color="darkblue"></FilterColor>
-              <FilterColor color="gray"></FilterColor>
-            </Filter>
-            <Filter>
-              <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <OptionSize>XS</OptionSize>
-                <OptionSize>S</OptionSize>
-                <OptionSize>M</OptionSize>
-                <OptionSize>L</OptionSize>
-                <OptionSize>XL</OptionSize>
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
-          <AddContainer>
-            <AmountContainer>
-              <RemoveIcon/>
-              <Amount>10</Amount>
-              <AddIcon/>
-            </AmountContainer>
-            <AddButton>Add to cart</AddButton>
-          </AddContainer>
-        </InfoContainer>
-      </Wrapper>
+        <Wrapper>
+          <ImageContainer>
+            <Image src={product.image} alt={product.title} />
+          </ImageContainer>
+          <InfoContainer>
+            <Title>{product.title}</Title>
+            <Desc>{product.desc}</Desc>
+            <Price>$ {product.price}</Price>
+            <FilterContainer>
+              <Filter>
+                <FilterTitle>Color</FilterTitle>
+                {
+                  product.color && 
+                  product.color.map((item, index) => 
+                    <FilterColor color={item} key={index}></FilterColor>)
+                }
+
+              </Filter>
+              <Filter>
+                <FilterTitle>Size</FilterTitle>
+                <FilterSize>
+                  {
+                    product.size &&
+                    product.size.map((item, index) => 
+                    <OptionSize key={index} value={item}>{item.toUpperCase()}</OptionSize>)
+                  }
+                </FilterSize>
+              </Filter>
+            </FilterContainer>
+            <AddContainer>
+              <AmountContainer>
+                <RemoveIcon/>
+                <Amount>10</Amount>
+                <AddIcon/>
+              </AmountContainer>
+              <AddButton>Add to cart</AddButton>
+            </AddContainer>
+          </InfoContainer>
+        </Wrapper>
       <NewsLetter />
       <Footer/>
     </Container>
   )
 }
 
-export default Product
+export default ProductDetails
