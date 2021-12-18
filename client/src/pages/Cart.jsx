@@ -5,6 +5,7 @@ import Announcement from '../components/Announcement'
 import Footer from '../components/Footer'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { useSelector } from 'react-redux'
 
 const Container = styled.div``
 const Wrapper = styled.div`
@@ -129,6 +130,9 @@ const Button = styled.div`
 `
 
 const Cart = () => {
+  const quantity = useSelector(state => state.cart.quantity);
+  const products = useSelector(state => state.cart.products);
+
   return (
     <Container>
       <Navbar/>
@@ -138,148 +142,40 @@ const Cart = () => {
         <Top>
           <TopButton>CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag (2)</TopText>
+            <TopText>Shopping Bag ({quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
-          <Info>
-            <Product>
-              <ProductDetail>
-                <Link href="#">
-                  <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" alt="" />
-                </Link>
-                <Details>
-                  <ProductName><b>Product:</b> JESSIE THUNDER SHOES</ProductName>
-                  <ProductId><b>ID:</b> 93813718093</ProductId>
-                  <ProductColor color="black"></ProductColor>
-                  <ProductSize><b>Size</b> 37.5</ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <AddIcon/>
-                  <ProductAmount>2</ProductAmount>
-                  <RemoveIcon/>
-                </ProductAmountContainer>
-                <ProductPrice>
-                  $30
-                </ProductPrice>
-              </PriceDetail>
-            </Product>
-            <Product>
-              <ProductDetail>
-                <Link href="#">
-                  <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" alt="" />
-                </Link>
-                <Details>
-                  <ProductName><b>Product:</b> JESSIE THUNDER SHOES</ProductName>
-                  <ProductId><b>ID:</b> 93813718093</ProductId>
-                  <ProductColor color="black"></ProductColor>
-                  <ProductSize><b>Size</b> 37.5</ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <AddIcon/>
-                  <ProductAmount>2</ProductAmount>
-                  <RemoveIcon/>
-                </ProductAmountContainer>
-                <ProductPrice>
-                  $30
-                </ProductPrice>
-              </PriceDetail>
-            </Product>
-            <Product>
-              <ProductDetail>
-                <Link href="#">
-                  <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" alt="" />
-                </Link>
-                <Details>
-                  <ProductName><b>Product:</b> JESSIE THUNDER SHOES</ProductName>
-                  <ProductId><b>ID:</b> 93813718093</ProductId>
-                  <ProductColor color="black"></ProductColor>
-                  <ProductSize><b>Size</b> 37.5</ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <AddIcon/>
-                  <ProductAmount>2</ProductAmount>
-                  <RemoveIcon/>
-                </ProductAmountContainer>
-                <ProductPrice>
-                  $30
-                </ProductPrice>
-              </PriceDetail>
-            </Product>  <Product>
-              <ProductDetail>
-                <Link href="#">
-                  <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" alt="" />
-                </Link>
-                <Details>
-                  <ProductName><b>Product:</b> JESSIE THUNDER SHOES</ProductName>
-                  <ProductId><b>ID:</b> 93813718093</ProductId>
-                  <ProductColor color="black"></ProductColor>
-                  <ProductSize><b>Size</b> 37.5</ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <AddIcon/>
-                  <ProductAmount>2</ProductAmount>
-                  <RemoveIcon/>
-                </ProductAmountContainer>
-                <ProductPrice>
-                  $30
-                </ProductPrice>
-              </PriceDetail>
-            </Product>  <Product>
-              <ProductDetail>
-                <Link href="#">
-                  <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" alt="" />
-                </Link>
-                <Details>
-                  <ProductName><b>Product:</b> JESSIE THUNDER SHOES</ProductName>
-                  <ProductId><b>ID:</b> 93813718093</ProductId>
-                  <ProductColor color="black"></ProductColor>
-                  <ProductSize><b>Size</b> 37.5</ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <AddIcon/>
-                  <ProductAmount>2</ProductAmount>
-                  <RemoveIcon/>
-                </ProductAmountContainer>
-                <ProductPrice>
-                  $30
-                </ProductPrice>
-              </PriceDetail>
-            </Product>  <Product>
-              <ProductDetail>
-                <Link href="#">
-                  <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" alt="" />
-                </Link>
-                <Details>
-                  <ProductName><b>Product:</b> JESSIE THUNDER SHOES</ProductName>
-                  <ProductId><b>ID:</b> 93813718093</ProductId>
-                  <ProductColor color="black"></ProductColor>
-                  <ProductSize><b>Size</b> 37.5</ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <AddIcon/>
-                  <ProductAmount>2</ProductAmount>
-                  <RemoveIcon/>
-                </ProductAmountContainer>
-                <ProductPrice>
-                  $30
-                </ProductPrice>
-              </PriceDetail>
-            </Product>
+          <Info> 
+            { 
+              products.map((item, index) => (
+                <Product key={index}>
+                  <ProductDetail>
+                    <Link href="#">
+                      <Image src={item.image} alt="" />
+                    </Link>
+                    <Details>
+                      <ProductName><b>Product:</b> {item.title.toUpperCase()}</ProductName>
+                      <ProductId><b>ID:</b> {item._id}</ProductId>
+                      <ProductColor color={item.color}></ProductColor>
+                      <ProductSize><b>Size</b> {item.size.toUpperCase()}</ProductSize>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <ProductAmountContainer>
+                      <AddIcon/>
+                      <ProductAmount>{item.quantity}</ProductAmount>
+                      <RemoveIcon/>
+                    </ProductAmountContainer>
+                    <ProductPrice>
+                      {item.price}
+                    </ProductPrice>
+                  </PriceDetail>
+                </Product>)
+              )
+            }
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>

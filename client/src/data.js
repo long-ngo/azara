@@ -75,5 +75,9 @@ export const popularProducts = [
   {
     id: 8,
     img: 'https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png'
+  },
+  {
+    id: 9,
+    img: 'https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png'
   }
 ];
