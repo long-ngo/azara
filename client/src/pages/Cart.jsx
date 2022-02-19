@@ -5,7 +5,9 @@ import Announcement from '../components/Announcement'
 import Footer from '../components/Footer'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { useSelector } from 'react-redux'
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useSelector, useDispatch } from 'react-redux'
+import { removeProduct, addOrRemoveQuantity } from '../redux/cartRedux';
 
 const Container = styled.div``
 const Wrapper = styled.div`
@@ -91,8 +93,27 @@ const ProductAmount = styled.div`
   margin: 5px;
 `
 const ProductPrice = styled.div`
+  font-size: 28px;
+  font-weight: 300;
+  display: flex;
+  flex-flow: row;
+  gap: 10px;
+`
+const PriceReal = styled.div`
+  text-decoration: line-through;
+  font-style: italic;
+  opacity: 0.6;
+`
+const PriceDiscount = styled.div`
+`
+const TotalDetail = styled.div`
+  flex: 1;
   font-size: 30px;
   font-weight: 300;
+`
+
+const DeleteDetail = styled.div`
+  flex: 1;
 `
 
 const Summary = styled.div`
@@ -115,7 +136,7 @@ const SummaryItem = styled.div`
   justify-content: space-between;
   font-weight: ${props => props.type === 'total' && 'bold'};
   font-style: ${props => props.type === 'total' ? 'normal' : 'italic'};
-  font-size: ${props => props.type === 'total' ? '1.4rem' : '1rem'};;
+  font-size: ${props => props.type === 'total' ? '1.4rem' : '1rem'};
 `
 const SummaryItemText = styled.div`
 `
@@ -128,10 +149,28 @@ const Button = styled.div`
   color: white;
   text-align: center;
 `
+const Btn = styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+`
 
 const Cart = () => {
   const quantity = useSelector(state => state.cart.quantity);
   const products = useSelector(state => state.cart.products);
+  const total = useSelector(state => state.cart.total);
+  const dispatch = useDispatch();
+
+  const handleQuantity = (product, type) => {
+    const action = addOrRemoveQuantity({product, type});
+    dispatch(action);
+  }
+
+  const handleDelete = (product) => {
+    const action = removeProduct({product});
+    dispatch(action);
+  }
 
   return (
     <Container>
@@ -154,7 +193,7 @@ const Cart = () => {
                 <Product key={index}>
                   <ProductDetail>
                     <Link href="#">
-                      <Image src={item.image} alt="" />
+                      <Image src={item.image} alt={item.title} />
                     </Link>
                     <Details>
                       <ProductName><b>Product:</b> {item.title.toUpperCase()}</ProductName>
@@ -165,14 +204,31 @@ const Cart = () => {
                   </ProductDetail>
                   <PriceDetail>
                     <ProductAmountContainer>
-                      <AddIcon/>
+                      <Btn onClick={() => handleQuantity(item, 0)}>
+                        <RemoveIcon/>
+                      </Btn>
                       <ProductAmount>{item.quantity}</ProductAmount>
-                      <RemoveIcon/>
+                      <Btn onClick={() => handleQuantity(item, 1)}>
+                        <AddIcon/>
+                      </Btn>
                     </ProductAmountContainer>
                     <ProductPrice>
-                      {item.price}
+                      <PriceReal>
+                        ${item.price}
+                      </PriceReal>
+                      <PriceDiscount>
+                        ${item.price - (item.price * (item.discount / 100))}
+                      </PriceDiscount>
                     </ProductPrice>
                   </PriceDetail>
+                  <TotalDetail>
+                    ${item.price * item.quantity}
+                  </TotalDetail>
+                  <DeleteDetail>
+                    <Btn onClick={() => handleDelete(item)}>
+                      <DeleteIcon/>
+                    </Btn>
+                  </DeleteDetail>
                 </Product>)
               )
             }
@@ -181,7 +237,7 @@ const Cart = () => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>$ {total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>

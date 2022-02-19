@@ -128,7 +128,7 @@ const ProductDetails = () => {
       setProduct(data[0]);
       setColor(data[0].color[0]);
       setSize(data[0].size[0]);
-      setActionColor(data[0].color[0])
+      setActionColor(data[0].color[0]);
     })()
     return () => setProduct({})
   }, [params])
@@ -146,7 +146,7 @@ const ProductDetails = () => {
   }
 
   const handleSize = (e) => {
-    setSize(e.target.value)
+    setSize(e.target.value);
   }
 
   const handleClick = () => {
@@ -199,11 +199,11 @@ const ProductDetails = () => {
               <AmountContainer>
                 <Btn onClick={() => handleQuantity(-1)}>
                   <RemoveIcon/>
-                  </Btn>
+                </Btn>
                 <Amount>{quantity}</Amount>
                 <Btn onClick={() => handleQuantity(1)}>
                   <AddIcon/>
-                  </Btn>
+                </Btn>
               </AmountContainer>
               <AddButton onClick={handleClick}>Add to cart</AddButton>
             </AddContainer>

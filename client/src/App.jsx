@@ -8,11 +8,15 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate
+  Navigate,
+  
 } from "react-router-dom";
 
+import {useSelector} from 'react-redux'
+
 const App = () => {
-  let user = true;
+  const isFetching = useSelector(state => state.user.isFetching);
+  
   return (
     <Router>
       <Routes>
@@ -20,8 +24,8 @@ const App = () => {
         <Route path="/cart" element={<Cart />}/>
         <Route path="/product/:id" element={<ProductDetails />}/>
         <Route path="/products/:category" element={<ProductList />}/>
-        <Route path="/login" element={user ? <Navigate to='/'/> : <Login />}/>
-        <Route path="/register" element={user ? <Navigate to='/'/> : <Register />}/>
+        <Route path="/login" element={isFetching ? <Navigate to='/'/> : <Login />}/>
+        <Route path="/register" element={<Register />}/>
       </Routes>
     </Router>
   );
